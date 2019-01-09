@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    Well hey there!!!
+    <script>
+      window.onload = () => {
+        var gicon = require("gicon");
+
+        // get favicon url
+        gicon.favicon("https://web.whatsapp.com", function(err, path) {
+          // if err is not null, err contains error code and error message
+          // path is "https://github.com/favicon.ico";
+          console.log(path)
+          alert(path)
+        });
+
+      }
+    </script>
+	<script type="module">
+	  import {html, render} from './node_modules/lit-html/lit-html.js';
+	</script>
+  </body>
+</html>

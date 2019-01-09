@@ -1,0 +1,68 @@
+{
+  "name": "mnm",
+  "productName": "mnm",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "start:dev": "nodemon --watch index.js --exec yarn start"
+  },
+  "keywords": [],
+  "author": "piggyslasher",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "mnm"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    },
+    "defaultApps": [
+      "https://web.whatsapp.com",
+      "https://messenger.com"
+    ]
+  },
+  "dependencies": {
+    "connect": "^3.6.6",
+    "electron-squirrel-startup": "^1.0.0",
+    "gicon": "^1.0.6",
+    "harmon": "^1.4.3",
+    "http-proxy-middleware": "^0.19.1",
+    "lit-html": "^0.14.0",
+    "morgan": "^1.9.1",
+    "node-notifier": "^5.3.0",
+    "nodemon": "^1.18.9"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.22",
+    "@electron-forge/maker-deb": "^6.0.0-beta.22",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.22",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.22",
+    "@electron-forge/maker-zip": "^6.0.0-beta.22",
+    "electron": "4.0.1"
+  }
+}
