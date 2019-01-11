@@ -47,3 +47,8 @@ class Notification {
 }
 
 window.Notification = Notification;
+window.asd = 'ASD'
+
+console.log('asagasgsdg')
+
+alert('')

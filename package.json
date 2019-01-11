@@ -10,7 +10,9 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
-    "start:dev": "nodemon --watch index.js --exec yarn start"
+    "start:dev": "nodemon --watch index.js --watch ./*.js --exec yarn start",
+    "install-wsl": "npm install && npm uninstall electron && export npm_config_platform=win32 && npm install --dev electron && unset npm_config_platform",
+    "install-wsl-yarn": "yarn && yarn remove electron && export npm_config_platform=win32 && yarn add --dev electron && unset npm_config_platform"
   },
   "keywords": [],
   "author": "piggyslasher",
@@ -41,21 +43,29 @@
         }
       ]
     },
-    "defaultApps": [
-      "https://web.whatsapp.com",
-      "https://messenger.com"
-    ]
+    "mnm": {
+      "size": {
+        "width": 800,
+        "height": 600
+      },
+      "faviconService": "https://wt-227b581e799911ba5720fb0a1cc2ba97-0.sandbox.auth0-extend.com/getFavicon",
+      "viewOptions": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36"
+      }
+    }
   },
   "dependencies": {
     "connect": "^3.6.6",
     "electron-squirrel-startup": "^1.0.0",
+    "favicon-url": "^0.0.5",
     "gicon": "^1.0.6",
     "harmon": "^1.4.3",
     "http-proxy-middleware": "^0.19.1",
     "lit-html": "^0.14.0",
     "morgan": "^1.9.1",
     "node-notifier": "^5.3.0",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.22",

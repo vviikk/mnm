@@ -1350,6 +1350,13 @@ fast-json-stable-stringify@^2.0.0:
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.0.0.tgz#d5142c0caee6b1189f87d3a76111064f86c8bbf2"
   integrity sha1-1RQsDK7msRifh9OnYREGT4bIu/I=
 
+favicon-url@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/favicon-url/-/favicon-url-0.0.5.tgz#6ecf88214da5e13bc936c3df8750261e62911434"
+  integrity sha512-Atog6UmZynCAtegH4AG5MxHkhCRDyXrgmA/8NW2Ux4cGN7q6C2wEIBllMiUDePq38dCr0p5QXMayNaZXtgjSvA==
+  dependencies:
+    follow-redirects "^1.2.4"
+
 fd-slicer@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/fd-slicer/-/fd-slicer-1.0.1.tgz#8b5bcbd9ec327c5041bf9ab023fd6750f1177e65"
@@ -1410,7 +1417,7 @@ flora-colossus@^1.0.0:
     debug "^3.1.0"
     fs-extra "^4.0.0"
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.2.4:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.6.1.tgz#514973c44b5757368bad8bddfe52f81f015c94cb"
   integrity sha512-t2JCjbzxQpWvbhts3l6SH1DKzSrx8a+SsaVf4h6bG4kOXUuPYS/kg2Lr4gQSb7eemaHqJkOThF1BGyjlUkO1GQ==
