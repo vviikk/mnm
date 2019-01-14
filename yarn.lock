@@ -1174,6 +1174,13 @@ electron-rebuild@^1.6.0:
     spawn-rx "^2.0.10"
     yargs "^7.0.2"
 
+electron-reload@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/electron-reload/-/electron-reload-1.4.0.tgz#00154268c936fa17b496fdb1728434c747e1d29a"
+  integrity sha512-pluNocZ9LqIeKmUzUSEHa+vT1+dG5923zXez4iwEhWqC2hydALPKvu+kJJzkdYRJv5z15S8waDthyrMyKd5MCQ==
+  dependencies:
+    chokidar "^2.0.4"
+
 electron-squirrel-startup@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/electron-squirrel-startup/-/electron-squirrel-startup-1.0.0.tgz#19b4e55933fa0ef8f556784b9c660f772546a0b8"

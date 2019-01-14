@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <style>
+
+.tabbar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: darkgray;
+}
+
+.tabbar li {
+  width: 50px;
+  height: 50px;
+  display: flex;
+}
+
+.tabbar button {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 10%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.tabbar button img {
+  width: 100%;
+  height: 100%;
+}
+    </style>
+  </head>
+  <body>
+    Loading... ⌛️
+    <script type="module">
+      const gicon = require('gicon')
+       gicon.favicon("html5rocks.com", function(err, path) {
+          // if err is not null, err contains error code and error message
+          // path is "https://github.com/favicon.ico";
+          console.log(path)
+        });
+
+      const faviconUrl = require('favicon-url')
+
+faviconUrl('messenger.com', {}, (favicon, dataBufferLength) => {
+    console.log('messenger', favicon)
+    // console.log(dataBufferLength)
+})
+      import {html, render} from 'https://unpkg.com/lit-html?module';
+
+      // You can also require other files to run in this process
+      require('./renderer.js')(html, render)
+    </script>
+  </body>
+</html>

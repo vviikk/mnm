@@ -47,47 +47,8 @@ function createWindow () {
   ipcMain.on('init-services', (evt, services) => {
     console.log('services to init', services)
     viewManager = new ViewManager(mainWindow, services)
+    // viewManager.addView(`file://${__dirname}/prefs.html`, { webPreferences: {nodeIntegration: true}})
   })
- 
-
-  //   let view = new BrowserView({
-  //   webPreferences: {
-  //     nodeIntegration: false,
-  //   },
-  // })
-
-  // view.setBounds({ x: 0, y: 0, 
-  //   width: 800,
-  //   height: 550,
-  // })
-
-  // view.setAutoResize({ width: true, height: true })
-
-  // // mainWindow.setBrowserView(view)
-
-  // view.webContents.loadURL('http://localhost:3000/not')
-
-  // view.webContents.executeJavaScript(`
-	// 	var base = document.createElement('base');
-	// 	base.href = "http://localhost:3000/not";
-	// 	document.getElementsByTagName('head')[0].appendChild(base);
-  //   const OldNotification = window.Notification
-  //   class Notification extends OldNotification {
-  //     constructor(...args) {
-  //       console.log(args)
-  //       super(...args)
-  //     }
-  //   }
-
-  //   window.Notification = Notification
-
-  // setTimeout(function(){
-  //   console.log("hello world")
-  // }, 3000)`, function(){console.log ('finish')})
-  // view.webContents.openDevTools()
-
-  // view.webContents.on('console-message', console.log)
-
 }
 
 // This method will be called when Electron has finished
