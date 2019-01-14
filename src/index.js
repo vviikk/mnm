@@ -1,8 +1,15 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, BrowserView, ipcMain, session } = require('electron')
+const {app, BrowserWindow, ipcMain, session } = require('electron')
 const ViewManager = require('./ViewManager')
 const path = require('path')
 const url = require('url')
+
+const path = require('path')
+ 
+require('electron-reload')(__dirname, {
+  electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+  hardResetMethod: 'exit'
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
