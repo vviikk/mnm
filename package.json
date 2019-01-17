@@ -2,7 +2,7 @@
   "name": "mnm",
   "productName": "mnm",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Multi-network Messenger to ",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -54,6 +54,7 @@
   "dependencies": {
     "connect": "^3.6.6",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^2.0.0",
     "favicon-url": "^0.0.5",
     "gicon": "^1.0.6",
     "harmon": "^1.4.3",

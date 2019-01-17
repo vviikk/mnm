@@ -1,54 +1,397 @@
-import { ipcRenderer } from 'electron';
-import uuidV1 from 'uuid/v1';
+const { ipcRenderer } = require('electron')
+const uuidV1 = require('uuid/v1')
 
-class Notification {
-  static permission = 'granted';
-
-  constructor(title = '', options = {}) {
-    // debug('New notification', title, options);
-    this.title = title;
-    this.options = options;
-    this.notificationId = uuidV1();
-
-    ipcRenderer.sendToHost('notification', this.onNotify({
-      title: this.title,
-      options: this.options,
-      notificationId: this.notificationId,
-    }));
-
-    ipcRenderer.once(`notification-onclick:${this.notificationId}`, () => {
-      if (typeof this.onclick === 'function') {
-        this.onclick();
-      }
-    });
-  }
-
-  static requestPermission(cb = null) {
-    if (!cb) {
-      return new Promise((resolve) => {
-        resolve(Notification.permission);
-      });
+/**
+ * Patches window.Notification to:
+ * - set a callback on a new Notification
+ * - set a callback for clicks on notifications
+ * @param createCallback
+ * @param clickCallback
+ */
+const setNotificationCallback = (createCallback, clickCallback) => {
+  const OldNotify = window.Notification
+  class NewNotify {
+    constructor(title, opt) {
+      this.instance = new OldNotify(title, opt)
+      this.instance.notificationId = uuidV1()
+      this.instance.addEventListener('show', createCallback)
+      this.instance.addEventListener('click', clickCallback)
+      return this.instance
     }
 
-    if (typeof (cb) === 'function') {
-      return cb(Notification.permission);
+    get requestPermission() {
+      return OldNotify.requestPermission.bind(this.instance)
     }
 
-    return Notification.permission;
+    static get permission() {
+      return OldNotify.permission
+    }
   }
 
-  onNotify(data) {
-    return data;
-  }
-
-  onClick() {}
-
-  close() {}
+  window.Notification = NewNotify
 }
 
-window.Notification = Notification;
-window.asd = 'ASD'
+const notifyNotificationCreate = (...args) => {
+  console.log('Notification:shown', args)
+  ipcRenderer.send('notification', args)
+}
+const notifyNotificationClick = (...args) => {
+  console.log(args)
+  ipcRenderer.send('notification-click')
+}
 
-console.log('asagasgsdg')
+setNotificationCallback(notifyNotificationCreate, notifyNotificationClick)
 
-alert('')
+
+(function() {var css = "";
+css += "@namespace url(http://www.w3.org/1999/xhtml);";
+if (false || (document.domain == "topdocumentaryfilms.com" || document.domain.substring(document.domain.indexOf(".topdocumentaryfilms.com") + 1) == "topdocumentaryfilms.com"))
+	css += [
+		"html body#top, body {",
+		"    background: #080808 !important;",
+		"    color: #aaa !important;",
+		"    margin-top: 70px;",
+		"}",
+		"",
+		"html body#top header.top {",
+		"    background: #040404 !important;",
+		"    position: fixed !important;",
+		"    width: 100% !important;",
+		"    z-index: 1 !important;",
+		"    opacity: .75 !important;",
+		"    height: 70px !important;",
+		"    top: 1px !important;",
+		"    ",
+		"}  ",
+		"",
+		"html body#top div.page-wrap div.content-wrap div.group.grid aside.grid-1-3 section.module h3 {",
+		"    border-bottom: 1px dotted #000 !important; ",
+		"}",
+		"    ",
+		"html body#top div.page-wrap div.content-wrap div.group.grid aside.grid-1-3 nav.module.clear h3 {",
+		"    border-bottom: 1px dotted #000 !important; ",
+		"}",
+		"    ",
+		"header.module.archive-title.clear h1 {",
+		"    color: #aaa !important;",
+		"}",
+		"    ",
+		"html body#top div.page-wrap div.content-wrap div.group.grid {",
+		"    background: #151515 !important;",
+		"}",
+		"",
+		".module, article div.module.new-single {",
+		"    background: #151515 !important;",
+		"    color: #aaa !important;",
+		"    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) !important;",
+		"}",
+		"",
+		"article div.module.new-single header h1, article div.clear.module div.share-text {",
+		"    color: #aaa !important;",
+		"}",
+		"",
+		"article div.clear.module span.number_shares {",
+		"    color: #444 !important;",
+		"}",
+		"",
+		".post-ratings {",
+		"    border-top: 1px solid #000 !important;",
+		"}",
+		"",
+		".single-h2-title h2 {",
+		"    border-bottom: 1px dotted #000 !important;",
+		"}",
+		"",
+		"aside .module h3 {",
+		"    border-bottom: 1px dotted #ccc !important;",
+		"    color: #aaa !important;",
+		"}",
+		"",
+		"a {",
+		"    color: #FFF !important;",
+		"}",
+		"",
+		"a:hover {",
+		"    color: #BBB !important;",
+		"}",
+		"",
+		"a:visited {",
+		"    color: #BBB !important;",
+		"}",
+		"",
+		"a:visited:hover {",
+		"    color: #FFF !important;",
+		"}",
+		"",
+		".cat-list a {",
+		"    background: #151515 none repeat scroll 0 0;",
+		"    box-shadow: 0 0 3px rgba(0, 0, 0, 0.7) !important;",
+		"    border: 1px dotted rgba(0, 0, 0, 0.7) !important;",
+		"}",
+		"",
+		".cat-list a:hover {",
+		"    background: #212121 none repeat scroll 0 0;",
+		"    box-shadow: 0 0 3px rgba(0, 0, 0, 0.7) !important;",
+		"    border: 1px dotted rgba(0, 0, 0, 0.7) !important;",
+		"}",
+		"",
+		".main-nav > a {",
+		"    border-top: 3px solid #555 !important;",
+		"    color: #efefef !important;",
+		"}",
+		"",
+		".star {",
+		"    border-right: 1px solid #ccc !important;",
+		"    color: #FFF;",
+		"    background: #151515 !important;",
+		"}",
+		"",
+		"html.js.no-touch.localstorage.sessionstorage.contenteditable.use-opacity-transitions body div#layout section#conversation div#posts ul#post-list.post-list li#post-1892640991.post div.post-content div.post-body div.post-body-inner div.post-message-container div.publisher-anchor-color div.post-message, html.js.no-touch.localstorage.sessionstorage.contenteditable.use-opacity-transitions body div#layout section#conversation div#posts ul#post-list.post-list li#post-1892640991.post div.post-content div.post-body div.post-body-inner div.post-message-container div.publisher-anchor-color{",
+		"    background: #212121 none repeat scroll 0 0;",
+		"    color: #aaa !important;",
+		"}",
+		"",
+		"html body#top div.page-wrap div.footer-wrap section.footer-action.clear footer.site-footer.site-footer-newsletter {",
+		"    left: -43px !important;",
+		"    padding-left: 27px !important;",
+		"    padding-right: 0 !important;",
+		"    right: 9px !important;",
+		"    width: 649px !important;",
+		"}",
+		"",
+		"html body#top div.page-wrap div.footer-wrap section.footer-action.clear footer.site-footer.site-footer-social{",
+		"    left: -25px !important;",
+		"    margin-right: 0 !important;",
+		"    padding-right: 0 !important;",
+		"    right: 0 !important;",
+		"    width: 553px !important;",
+		"}",
+		"",
+		"html body#top div.page-wrap div.footer-wrap section.footer-action.clear {",
+		"width: 1240px !important;",
+		"}",
+		"",
+		"footer.site-footer.site-footer-newsletter p{",
+		"    width: 553px !important;",
+		"}",
+		"",
+		"footer.site-footer.site-footer-links {",
+		"    left: -39px !important;",
+		"    margin-left: 1px !important;",
+		"    padding-left: 35px !important;",
+		"    right: 47px !important;",
+		"    width: 1168px !important;",
+		"}",
+		"",
+		".pagination span, .pagination a {",
+		"    background: #222 none repeat scroll 0 0;",
+		"    border: 1px solid #000;",
+		"    color: #FFF;",
+		"}",
+		"",
+		".pagination span:hover, .pagination a:hover {",
+		"    background: #333 none repeat scroll 0 0;",
+		"    border: 1px solid #000;",
+		"    color: #FFF;",
+		"}",
+		"",
+		".pagination .current, .pagination .current:hover {",
+		"    background: #222 none repeat scroll 0 0;",
+		"    border: 1px solid #000;",
+		"    color: #fff;",
+		"    margin-right: 5px;",
+		"    box-shadow: 0 0 3px rgba(111, 111, 111, 0.8) !important;",
+		"}",
+		"",
+		"input[type=\"text\"], input[type=\"search\"], input[type=\"url\"], input[type=\"email\"], input[type=\"text\"], input[type=\"password\"] {",
+		"    background: #222 none repeat scroll 0 0 !important;",
+		"    border:none !important;",
+		"    color: #fff !important;",
+		"    margin-right: 5px !important;",
+		"    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8) !important;",
+		"}",
+		"    ",
+		"input[type=\"text\"]:focus, input[type=\"search\"], input[type=\"url\"]:focus, input[type=\"email\"]:focus, input[type=\"text\"]:focus, input[type=\"password\"]:focus {",
+		"    background: #222 none repeat scroll 0 0 !important;",
+		"    border: 1px solid #000 !important;",
+		"    color: #fff !important;",
+		"    margin-right: 5px !important;",
+		"    box-shadow: 0 0 4px rgba(111, 111, 111, 0.3) !important;",
+		"}",
+		"",
+		".button {",
+		"    background: #222 none repeat scroll 0 0 !important;",
+		"    color: #fff !important;",
+		"}",
+		"",
+		".button:hover {",
+		"    background: #444 none repeat scroll 0 0 !important;",
+		"    color: #fff !important;",
+		"}",
+		"",
+		"#search-form {",
+		"    background: #000 none repeat scroll 0 0 !important;",
+		"    border: 1px solid #000 !important;",
+		"    border-radius: 3px !important;",
+		"    color: #f9f9f9 !important;",
+		"}",
+		"    ",
+		"html body#top header.top div.top-bar.clear div.search form#search-form div.no-overflow {",
+		"    background: #222 none repeat scroll 0 0 !important;",
+		"    border:none !important;",
+		"    color: #fff !important;",
+		"    margin-right: 5px !important;",
+		"    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8) !important;",
+		"}",
+		"",
+		"html body#top header.top div.top-bar.clear div.search form#search-form div.no-overflow:focus {",
+		"    background: #222 none repeat scroll 0 0 !important;",
+		"    border: 1px solid #000 !important;",
+		"    color: #fff !important;",
+		"    margin-right: 5px !important;",
+		"    box-shadow: 0 0 4px rgba(111, 111, 111, 0.3) !important;",
+		"}",
+		"    ",
+		"html body#top header.top div.top-bar.clear div.search form#search-form button#button-search {",
+		"    background: #777 none repeat scroll 0 0 !important;",
+		"    border:none !important;",
+		"    color: #fff !important;",
+		"    margin-right: 5px !important;",
+		"    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8) !important;",
+		"    margin-left: 0 !important;",
+		"    margin-right: 0 !important;",
+		"    margin-top: 0px !important;",
+		"    padding-right: 0 !important;",
+		"    width: 30px !important;",
+		"    height: 30px !important;",
+		"}",
+		"",
+		"html body#top header.top div.top-bar.clear div.search form#search-form button#button-search:hover {",
+		"    background: #444 none repeat scroll 0 0 !important;",
+		"    border: 1px solid #000 !important;",
+		"    color: #fff !important;",
+		"    box-shadow: 0 0 4px rgba(111, 111, 111, 0.3) !important;",
+		"    height: 30px !important;",
+		"    margin-left: 0 !important;",
+		"    margin-right: 0 !important;",
+		"    margin-top: 0px !important;",
+		"    padding-right: 0 !important;",
+		"    width: 30px !important;",
+		"}",
+		"",
+		"html body#top header.top div.top-bar.clear div.search form#search-form div.no-overflow input#results.search-field {",
+		"    background: #222 none repeat scroll 0 0 !important;",
+		"    border:none !important;",
+		"    color: #fff !important;",
+		"    margin-right: 5px !important;",
+		"    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8) !important;    ",
+		"}",
+		"",
+		"html body#top header.top div.top-bar.clear div.search form#search-form div.no-overflow input#results.search-field:focus {",
+		"    background: #222 none repeat scroll 0 0 !important;",
+		"    border: none !important;",
+		"    color: #fff !important;",
+		"    margin-right: 5px !important;",
+		"    box-shadow: 0 0 3px rgba(111, 111, 111, 0.7) !important;",
+		"}",
+		"",
+		".title {",
+		"    background: #111 none repeat scroll 0 0!important;",
+		"    border: 1px solid #000!important;",
+		"    box-shadow: 0 0 3px rgba(0, 0, 0, 0.4) !important; ",
+		"}"
+	].join("\n");
+if (false || (document.location.href.indexOf("https://disqus.com/embed/comments/?base=default&version=0a4ceeff490aa75f15b5d4bbc423f0fd&f=topdocumentaryfilms&t_i=11472%20http%3A%2F%2Ftopdocumentaryfilms.com") == 0))
+	css += [
+		"body, h2, .h2  {",
+		"       background: #151515 !important;",
+		"       color: #aaa !important;",
+		"       box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) !important;",
+		"}",
+		"  ",
+		".nav > ul > li > a, .nav > ul > li > div a, .post-content header .parent-link, .post-content header .state-byline, .post-content header .time-ago, .nav .dropdown-toggle {",
+		"       color: #FFF !important;",
+		"}",
+		"",
+		".nav > ul > li > a, .nav > ul > li > div a:hover, .post-content header .parent-link, .post-content header .state-byline, .post-content header .time-ago:hover, .nav .dropdown-toggle:hover {      ",
+		"      color: #BBB !important;",
+		"}",
+		"  ",
+		".nav > ul > li > a, .nav > ul > li > div a:visited, .post-content header .parent-link, .post-content header .state-byline, .post-content header .time-ago:visited, .nav .dropdown-toggle:visited {      ",
+		"     color: #BBB !important;",
+		"}",
+		"",
+		".nav > ul > li > a, .nav > ul > li > div a:visited:hover, .post-content header .parent-link, .post-content header .state-byline, .post-content header .time-ago:visited:hover, .nav .dropdown-toggle:visited:hover {      ",
+		"     color: #FFF !important;",
+		"}",
+		"",
+		"div.post-content div.post-body header span.post-meta,body div#layout div#footer ul li#thread-subscribe-button.email div.default a span.clip {",
+		"     color: #FFF !important;",
+		"}",
+		"",
+		".textarea-wrapper, .textarea-wrapper .textarea, html.js.no-touch.localstorage.sessionstorage.contenteditable.use-opacity-transitions body div#layout section#conversation div#posts div#form form.reply.authenticated div.postbox div.textarea-wrapper div span.placeholder,.post-actions  {",
+		"    background: #222 none repeat scroll 0 0 !important;",
+		"    border:none !important;",
+		"    color: #fff !important;",
+		"    margin-right: 5px !important;",
+		"    box-shadow: none !important;   ",
+		"}",
+		"",
+		".textarea-wrapper:focus, .textarea-wrapper .textarea:focus, html.js.no-touch.localstorage.sessionstorage.contenteditable.use-opacity-transitions body div#layout section#conversation div#posts div#form form.reply.authenticated div.postbox div.textarea-wrapper div span.placeholder:focus,.post-actions:focus  {",
+		"    background: #222 none repeat scroll 0 0 !important;",
+		"    border: none !important;",
+		"    color: #fff !important;",
+		"    margin-right: 5px !important;",
+		"    box-shadow: none !important;",
+		"}",
+		"",
+		"",
+		".btn:hover {",
+		"    background: #777 none repeat scroll 0 0 !important;",
+		"    border:none !important;",
+		"    color: #fff !important;",
+		"    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8) !important;",
+		"",
+		"}",
+		"",
+		".btn {",
+		"    background: #444 none repeat scroll 0 0 !important;",
+		"    border: 1px solid #000 !important;",
+		"    color: #fff !important;",
+		"    box-shadow: 0 0 4px rgba(111, 111, 111, 0.3) !important;",
+		"}",
+		"   ",
+		"",
+		"post-content footer .voting .vote-down, .post-content footer .voting .vote-up, div.post-content div.post-body footer menu li.reply a span.text, div.post-content div.post-body footer menu li.voting span.vote-down.count-1, div.post-content div.post-body footer menu li.share a.toggle span.text, a.publisher-nav-color span.comment-count {",
+		"    color: #fff !important;",
+		"}",
+		"",
+		"#footer a {",
+		"    color: #aaa !important;",
+		"}",
+		"    ",
+		"#footer a:hover {",
+		"    color: #fff !important;",
+		"}"
+	].join("\n");
+if (typeof GM_addStyle != "undefined") {
+	GM_addStyle(css);
+} else if (typeof PRO_addStyle != "undefined") {
+	PRO_addStyle(css);
+} else if (typeof addStyle != "undefined") {
+	addStyle(css);
+} else {
+	var node = document.createElement("style");
+	node.type = "text/css";
+	node.appendChild(document.createTextNode(css));
+	var heads = document.getElementsByTagName("head");
+	if (heads.length > 0) {
+		heads[0].appendChild(node);
+	} else {
+		// no head yet, stick it whereever
+		document.documentElement.appendChild(node);
+	}
+}
+  },
+)()
+

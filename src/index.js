@@ -3,6 +3,8 @@ const { app, BrowserWindow, ipcMain, session } = require('electron')
 
 const ViewManager = require('./ViewManager')
 
+const config = require('./config')
+
 require('electron-reload')(__dirname, {
   electron: process.execPath,
   hardResetMethod: 'exit',
@@ -33,7 +35,7 @@ function createWindow() {
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
@@ -48,6 +50,9 @@ function createWindow() {
     console.log('services to init', services)
     viewManager = new ViewManager(mainWindow, services)
     // viewManager.addView(`file://${__dirname}/prefs.html`, { webPreferences: {nodeIntegration: true}})
+  })
+  ipcMain.on('size', (evt, size) => {
+    viewManager.size = size
   })
 }
 
