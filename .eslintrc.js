@@ -1,6 +1,6 @@
 module.exports = {
   'parser': 'babel-eslint',
-  'plugins': ['react', 'jest', 'prettier'],
+  'plugins': ['react', 'jest', 'prettier', 'lit'],
   'extends': ['airbnb', 'plugin:prettier/recommended', 'prettier/react'],
   'globals': {
     'React': true,

@@ -9,9 +9,6 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\"",
-    "start:dev": "nodemon --watch ./src --exec yarn start",
-    "install-wsl": "npm install && npm uninstall electron && export npm_config_platform=win32 && npm install --dev electron && unset npm_config_platform",
     "install-wsl-yarn": "yarn && yarn remove electron && export npm_config_platform=win32 && yarn add --dev --exact electron && unset npm_config_platform"
   },
   "keywords": [],
@@ -83,6 +80,7 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jest": "22.1.2",
     "eslint-plugin-jsx-a11y": "6.1.2",
+    "eslint-plugin-lit": "^0.4.1",
     "eslint-plugin-prettier": "3.0.1",
     "eslint-plugin-react": "7.12.3",
     "eslint-watch": "4.0.2",
