@@ -17,8 +17,7 @@
   "config": {
     "forge": {
       "packagerConfig": {},
-      "makers": [
-        {
+      "makers": [{
           "name": "@electron-forge/maker-squirrel",
           "config": {
             "name": "mnm"
@@ -38,7 +37,21 @@
           "name": "@electron-forge/maker-rpm",
           "config": {}
         }
-      ]
+      ],
+      "publishers": [{
+        "name": "@electron-forge/publisher-github",
+        "config": {
+          "repository": {
+            "owner": "vviikk",
+            "name": "mnm"
+          }
+        },
+        "platforms": [
+          "darwin",
+          "linux",
+          "windows"
+        ]
+      }]
     },
     "mnm": {
       "size": {
@@ -71,6 +84,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.22",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.22",
     "@electron-forge/maker-zip": "^6.0.0-beta.22",
+    "@electron-forge/publisher-github": "^6.0.0-beta.22",
     "babel-eslint": "^10.0.1",
     "cross-env": "^5.2.0",
     "electron": "4.0.1",
