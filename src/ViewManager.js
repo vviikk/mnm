@@ -1,4 +1,6 @@
-const { BrowserView, shell } = require('electron')
+const electron = require('electron')
+
+const { BrowserView, shell } = electron
 const path = require('path')
 
 class ViewManager {
@@ -61,6 +63,23 @@ class ViewManager {
       e.preventDefault()
       shell.openExternal(urlToOpen)
     })
+
+    view.webContents.on(
+      'new-window',
+      (e, newUrl, frameName, disposition, newOptions) => {
+        e.preventDefault()
+        if (newUrl === 'about:blank') {
+          if (frameName === 'Video Call') {
+            // Voice/video call popup
+            newOptions.show = true
+            newOptions.titleBarStyle = 'default'
+            e.newGuest = new electron.BrowserWindow(newOptions)
+          }
+        } else {
+          electron.shell.openExternal(newUrl)
+        }
+      },
+    )
 
     // view.webContents.openDevTools()
   }
