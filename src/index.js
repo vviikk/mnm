@@ -10,6 +10,8 @@ require('electron-reload')(__dirname, {
   hardResetMethod: 'exit',
 })
 
+require('update-electron-app')()
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
