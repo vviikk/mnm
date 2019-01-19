@@ -5,7 +5,7 @@
   "description": "Multi-network Messenger to ",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "cross-env NODE_ENV=development electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -72,6 +72,7 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.22",
     "@electron-forge/maker-zip": "^6.0.0-beta.22",
     "babel-eslint": "^10.0.1",
+    "cross-env": "^5.2.0",
     "electron": "4.0.1",
     "electron-reload": "^1.4.0",
     "eslint": "^5.12.0",

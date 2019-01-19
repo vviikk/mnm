@@ -1,0 +1,26 @@
+platform:
+- x64
+environment:
+  nodejs_version: "9"
+  # GITHUB_TOKEN:
+  #   secure: t1s7bP+lo6z4Gv+F0J2pvD4KY2nzgdtOtrz/eN3Q41XgoV4+GnBtuY2oHQdQJ1nH
+cache:
+ - '%LOCALAPPDATA%\Yarn'
+ - '%USERPROFILE%\.electron'
+ - node_modules
+branches:
+  only:
+  - master
+  - /^v\d\.\d\.\d/
+install:
+- ps: Install-Product node $env:nodejs_version $env:platform
+- set PATH=%APPDATA%\npm;%PATH%
+- yarn
+
+test_script:
+- node --version
+- npm --version
+- if %APPVEYOR_REPO_TAG% EQU false yarn make
+
+build_script:
+- IF %APPVEYOR_REPO_TAG% EQU true yarn publish
