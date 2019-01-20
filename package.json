@@ -88,7 +88,6 @@
     "babel-eslint": "^10.0.1",
     "cross-env": "^5.2.0",
     "electron": "4.0.1",
-    "electron-installer-debian": "^1.1.0",
     "electron-reload": "^1.4.0",
     "eslint": "^5.12.0",
     "eslint-config-airbnb": "17.1.0",
