@@ -42,6 +42,11 @@ module.exports = (html, render) => {
     'https://outlook.com',
     'https://www.daftlogic.com/sandbox-using-html5-notifications.htm',
     'https://mail.zoho.com',
+    'https://lazada.com',
+    'https://gmail.com',
+    'https://instagram.com',
+    'https://facebook.com',
+    'https://wechat.com',
   ]
 
   const fetchIcon = async url => {

@@ -1,0 +1,32 @@
+{
+  "services": [{
+      "url": "https://web.whatsapp.com",
+      "icon": "",
+      "userscripts": []
+    },
+    {
+      "url": "https://messenger.com",
+      "icon": ""
+    },
+    {
+      "url": "https://www.html5rocks.com/en/tutorials/notifications/quick/",
+      "icon": ""
+    },
+    {
+      "url": "https://feedly.com",
+      "icon": ""
+    },
+    {
+      "url": "https://outlook.com",
+      "icon": ""
+    },
+    {
+      "url": "https://www.daftlogic.com/sandbox-using-html5-notifications.htm",
+      "icon": ""
+    },
+    {
+      "url": "https://mail.zoho.com",
+      "icon": ""
+    }
+  ]
+}
