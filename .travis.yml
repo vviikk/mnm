@@ -22,6 +22,6 @@ install:
 - yarn
 
 script:
-- if test -z "$TRAVIS_TAG"; then yarn run make; fi
 - cd node_modules/@electron-forge/maker-deb/ && yarn add --dev electron-installer-debian@1.1.0 && cd -
+- if test -z "$TRAVIS_TAG"; then yarn run make; fi
 after_success: if test -n "$TRAVIS_TAG"; then yarn run publish; fi
