@@ -5,12 +5,13 @@ const ViewManager = require('./ViewManager')
 
 const config = require('./config')
 
-require('electron-reload')(__dirname, {
-  electron: process.execPath,
-  hardResetMethod: 'exit',
-})
-
-require('update-electron-app')()
+if (!app.isPackaged) {
+  require('electron-reload')(__dirname, {
+    electron: process.execPath,
+    hardResetMethod: 'exit',
+  })
+}
+// /////jgccrequire('update-electron-app')()
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
