@@ -1,7 +1,7 @@
 {
   "name": "mnm",
   "productName": "mnm",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Multi-network Messenger to ",
   "main": "src/index.js",
   "scripts": {
