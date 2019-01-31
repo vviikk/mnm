@@ -7,8 +7,8 @@ A multi network messenger based on Electron. It's like Franz or Wavebox, just mo
 - [ ] Resolves highest quality icons possible
 - [ ] Inject custom CSS
 - [ ] Inject custom javascript (userscripts)
-- [ ] Uses browserview and no iframes or webviews (much
+- [ ] Uses browserview and no iframes or webviews
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MDQ5NjQxNDgsLTEwNTk4Mjc2NTIsOT
-c1MTAyMjY1XX0=
+eyJoaXN0b3J5IjpbNTg4ODEzMzEzLC0xMDU5ODI3NjUyLDk3NT
+EwMjI2NV19
 -->
