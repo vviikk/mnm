@@ -7,6 +7,8 @@ const viewMargins = [0, 0, 0, 50] // top, right, bottom, left
 
 const OPTIONS = require('../package.json').config.mnm
 
+const { options, services } = require('./config/defaultConfig')
+
 const getViewBounds = () => {
   if (windowIsFullscreen) {
     return {
@@ -34,20 +36,20 @@ module.exports = (html, render) => {
   // be executed in the renderer process for that window.
 
   // All of the Node.js APIs are available in this process.
-  const services = [
-    'https://web.whatsapp.com',
-    'https://messenger.com',
-    'https://www.html5rocks.com/en/tutorials/notifications/quick/',
-    'https://feedly.com',
-    'https://outlook.com',
-    'https://www.daftlogic.com/sandbox-using-html5-notifications.htm',
-    'https://mail.zoho.com',
-    'https://lazada.com',
-    'https://gmail.com',
-    'https://instagram.com',
-    'https://facebook.com',
-    'https://wechat.com',
-  ]
+  // const services = [
+  //   'https://web.whatsapp.com',
+  //   'https://messenger.com',
+  //   'https://www.html5rocks.com/en/tutorials/notifications/quick/',
+  //   'https://feedly.com',
+  //   'https://outlook.com',
+  //   'https://www.daftlogic.com/sandbox-using-html5-notifications.htm',
+  //   'https://mail.zoho.com',
+  //   'https://lazada.com',
+  //   'https://gmail.com',
+  //   'https://instagram.com',
+  //   'https://facebook.com',
+  //   'https://wechat.com',
+  // ]
 
   const fetchIcon = async url => {
     const resp = await fetch(`${OPTIONS.faviconService}?url=${url}`)
@@ -56,7 +58,8 @@ module.exports = (html, render) => {
     return faviconUrl
   }
 
-  ipcRenderer.send('init-services', services)
+  ipcRenderer.send('init')
+  services.forEach(service => ipcRenderer.send('add-service', service))
 
   const moveToTab = idx => () => {
     ipcRenderer.send('move-to-tab', idx)
@@ -69,18 +72,18 @@ module.exports = (html, render) => {
   const tabs = images => html`
     <ul class="tabbar">
       ${
-  images.map(
-    (image, index) =>
-      html`
+        images.map(
+          (image, index) =>
+            html`
               <li>${btnTemplate(image, index)}</li>
             `,
-  )
-}
+        )
+      }
     </ul>
   `
 
   const bootstrap = () => {
-    const iconsUnresolved = services.map(service => fetchIcon(service))
+    const iconsUnresolved = services.map(({ url }) => fetchIcon(url))
     Promise.all(iconsUnresolved).then(icons => {
       console.log(icons)
       render(tabs(icons), document.body)

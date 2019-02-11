@@ -3,9 +3,10 @@ const { app, BrowserWindow, ipcMain, session } = require('electron')
 
 const ViewManager = require('./ViewManager')
 
-const config = require('./config')
+const { options, services } = require('./config/defaultConfig')
 
 if (!app.isPackaged) {
+  console.log('App isnt packaged')
   require('electron-reload')(__dirname, {
     electron: process.execPath,
     hardResetMethod: 'exit',
@@ -40,6 +41,15 @@ function createWindow() {
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
 
+  mainWindow.on('bootstrap', () => {
+    viewManager.clearUp()
+  })
+
+  ipcMain.on('add-service', (evt, service) => {
+    console.log(service)
+    viewManager.addView(service)
+  })
+
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows
@@ -48,14 +58,16 @@ function createWindow() {
     mainWindow = null
   })
 
-  ipcMain.on('move-to-tab', (evt, idx) => viewManager.moveToView(idx))
-  ipcMain.on('init-services', (evt, services) => {
-    console.log('services to init', services)
-    viewManager = new ViewManager(mainWindow, services)
-    // viewManager.addView(`file://${__dirname}/prefs.html`, { webPreferences: {nodeIntegration: true}})
+  ipcMain.on('move-to-tab', (evt, idx) => {
+    viewManager.moveToView(idx)
   })
-  ipcMain.on('size', (evt, size) => {
-    viewManager.size = size
+  ipcMain.on('init', (evt, services) => {
+    viewManager = new ViewManager(mainWindow)
+    ipcMain.on('size', (evt, size) => {
+      console.log('size event received')
+      viewManager.size = size
+    })
+    // viewManager.addView(`file://${__dirname}/prefs.html`, { webPreferences: {nodeIntegration: true}})
   })
 }
 
