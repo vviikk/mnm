@@ -1,12 +1,15 @@
 {
   "options": {
-    "width": "800",
-    "height": "600",
-    "x": "150",
-    "y": "150"
+    "windowOptions": {
+      "width": 800,
+      "height": 600
+    },
+    "faviconService": "https://wt-227b581e799911ba5720fb0a1cc2ba97-0.sandbox.auth0-extend.com/getFavicon",
+    "viewOptions": {
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36"
+    }
   },
-  "services": [
-    {
+  "services": [{
       "name": "HTML5 Notifications test",
       "url": "https://codepen.io/piggyslasher/full/gqaWqW"
     },

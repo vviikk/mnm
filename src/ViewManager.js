@@ -55,9 +55,8 @@ class ViewManager {
     view.webContents.loadURL(url)
 
     view.setBounds({ x: 50, y: 0, width: 750, height: 550 })
-    view.setAutoResize({ width: true, height: true })
 
-    // this.mainWindow.setBrowserView(view)
+    view.setAutoResize({ width: true, height: true })
 
     // Open all links in user's browser
     view.webContents.on('new-window', (e, urlToOpen) => {
