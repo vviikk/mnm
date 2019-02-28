@@ -33,6 +33,10 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-snap",
+          "config": {}
         }
       ],
       "publishers": [

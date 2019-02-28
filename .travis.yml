@@ -20,7 +20,6 @@ addons:
 
 install:
 - yarn
-- snapcraft
 
 before_script:
 # Update maker deb to the latest version
