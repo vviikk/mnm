@@ -1,6 +1,7 @@
 # mnm
 
 ![](https://raw.githubusercontent.com/vviikk/mnm/master/assets/mnm-icon.svg?sanitize=true)
+
 A multi network messenger based on Electron. It's like Franz or Wavebox, just more hacker-friendly. It's still in heavy progress.
 
 ## Features

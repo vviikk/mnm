@@ -2,7 +2,7 @@
   "name": "mnm",
   "productName": "mnm",
   "version": "0.4.0",
-  "description": "Multi-network Messenger to ",
+  "description": "A multi network messenger based on Electron. It's like Franz or Wavebox, just more hacker-friendly. It's still in heavy progress.",
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",
