@@ -1,6 +1,5 @@
 const { ipcRenderer } = require('electron')
 
-// const windowIsMaximised = false
 const windowIsFullscreen = false
 
 const viewMargins = [0, 0, 0, 50] // top, right, bottom, left
@@ -68,17 +67,19 @@ module.exports = (html, render) => {
   const btnTemplate = (img, idx) => html`
     <button @click=${moveToTab(idx)}><img src="${img}" /></button>
   `
+
+  const servicesList = images =>
+    images.map(
+      (image, index) =>
+        html`
+          <li>${btnTemplate(image, index)}</li>
+        `,
+    )
+
   // Define a template
   const tabs = images => html`
     <ul class="tabbar">
-      ${
-        images.map(
-          (image, index) =>
-            html`
-              <li>${btnTemplate(image, index)}</li>
-            `,
-        )
-      }
+      ${servicesList(images)}
     </ul>
   `
 

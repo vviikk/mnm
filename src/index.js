@@ -30,7 +30,7 @@ const resetUserAgent = () => {
   })
 }
 
-function createWindow() {
+const createWindow = () => {
   resetUserAgent()
   // Create the browser window.
   mainWindow = new BrowserWindow({ width: 800, height: 600 })
@@ -59,22 +59,22 @@ function createWindow() {
   })
 
   ipcMain.on('move-to-tab', (evt, idx) => {
+    console.log('move to' + idx)
     viewManager.moveToView(idx)
   })
+
   ipcMain.on('init', (evt, services) => {
+    console.log('Booting up...')
     viewManager = new ViewManager(mainWindow)
     ipcMain.on('size', (evt, size) => {
       console.log('size event received')
       viewManager.size = size
     })
+
+    console.log(app.getAppPath())
     // viewManager.addView(`file://${__dirname}/prefs.html`, { webPreferences: {nodeIntegration: true}})
   })
 }
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -84,6 +84,25 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', () => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+  })
+
+  // This method will be called when Electron has finished
+  // initialization and is ready to create browser windows.
+  // Some APIs can only be used after this event occurs.
+  app.on('ready', createWindow)
+}
 
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the

@@ -70,6 +70,7 @@ module.exports = {
     'no-param-reassign': [2, {
       'props': false
     }],
+    'no-underscore-dangle': 0,
     'prefer-template': 0,
     'import/prefer-default-export': 0,
     'import/no-unresolved': 0,

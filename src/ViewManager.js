@@ -6,16 +6,15 @@ const path = require('path')
 class ViewManager {
   constructor(browserWindow, size) {
     this.mainWindow = browserWindow
-    this.views = []
-    this.size = size
+    this._views = []
+    this._size = size
     this.decorateURL = _ => _
-    // services.forEach(service =>
-    //   this.addView.bind(this)(service,
+    this._selectedView = null
   }
 
   set size(size) {
-    if (this.selectedView) {
-      this.selectedView.setBounds(size)
+    if (this._selectedView) {
+      this._selectedView.setBounds(size)
     }
     this._size = size
   }
@@ -25,35 +24,25 @@ class ViewManager {
   }
 
   clearup() {
-    this.views = []
-    this.selectedView = null
+    this._views = []
+    this._selectedView = null
   }
 
   moveToView(idx) {
-    if (!this.selectedView) return
-    this.selectedView = this.views[idx]
-    this.selectedView.setBounds(this.size)
-    this.mainWindow.setBrowserView(this.selectedView)
+    // if (!this._selectedView) return
+    console.log('Moving to' + idx, this._views)
+    this._selectedView = this._views[idx]
+    this._selectedView.setBounds(this.size)
+    this.mainWindow.setBrowserView(this._selectedView)
   }
 
-  get view() {
-    return this._view
-  }
-
-  set view(view) {
-    this._view = view
-    console.log('setting view')
-    this.mainWindow.setBrowserView(view)
-  }
-
-  addViewAsync(service) {
+  addViewAsync(service, opts) {
     return new Promise((resolve, reject) =>
-      addView(service.url, opts, resolve, reject),
+      this.addView(service.url, opts, resolve, reject),
     )
   }
 
   addView({ url }, options, cbsuccess = () => {}, cbfail = () => {}) {
-    console.log(url)
     const view = new BrowserView({
       webPreferences: {
         nodeIntegration: false,
@@ -62,15 +51,13 @@ class ViewManager {
         allowPopups: false,
       },
     })
-    console.log(view, 'asd')
+
+    view.webContents.loadURL(url)
 
     view.setBounds({ x: 50, y: 0, width: 750, height: 550 })
     view.setAutoResize({ width: true, height: true })
 
-    this.mainWindow.setBrowserView(view)
-
-    this.view = view
-    console.log('view set', url)
+    // this.mainWindow.setBrowserView(view)
 
     // Open all links in user's browser
     view.webContents.on('new-window', (e, urlToOpen) => {
@@ -78,9 +65,7 @@ class ViewManager {
       shell.openExternal(urlToOpen)
     })
 
-    // view.webContents.on('did-finish-load', cbsuccess())
-    // view.webContents.on('did-fail-load', cbfail())
-
+    // Fix for Facebook Messenger
     view.webContents.on(
       'new-window',
       (e, newUrl, frameName, disposition, newOptions) => {
@@ -98,7 +83,13 @@ class ViewManager {
       },
     )
 
-    return this.view.length - 1
+    this._views.push(view)
+    this.moveToView(this._views.length - 1)
+
+    // view.webContents.on('did-finish-load', cbsuccess())
+    // view.webContents.on('did-fail-load', cbfail())
+
+    return true
 
     // view.webContents.openDevTools()
   }
