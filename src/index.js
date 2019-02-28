@@ -1,13 +1,13 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcMain, session } = require('electron')
-
+const reload = require('electron-reload')
 const ViewManager = require('./ViewManager')
 
-const { options, services } = require('./config/defaultConfig')
+const { options, services } = require('./config')
 
 if (!app.isPackaged) {
   console.log('App isnt packaged')
-  require('electron-reload')(__dirname, {
+  reload(__dirname, {
     electron: process.execPath,
     hardResetMethod: 'exit',
   })
@@ -21,11 +21,11 @@ let viewManager
 
 app.setAppUserModelId(process.execPath)
 
-const OPTIONS = require('../package.json').config.mnm
+const { viewOptions } = options
 
 const resetUserAgent = () => {
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    details.requestHeaders['User-Agent'] = OPTIONS.viewOptions.userAgent
+    details.requestHeaders['User-Agent'] = viewOptions.userAgent
     callback({ cancel: false, requestHeaders: details.requestHeaders })
   })
 }

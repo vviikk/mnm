@@ -10,6 +10,9 @@
     }
   },
   "services": [{
+      "name": "Google Calendar",
+      "url": "https://calendar.google.com"
+    },{
       "name": "HTML5 Notifications test",
       "url": "https://codepen.io/piggyslasher/full/gqaWqW"
     },

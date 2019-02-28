@@ -1,4 +1,6 @@
-const { app } = require('electron')
+const electron = require('electron')
+
+const app = electron.app || electron.remote.app
 
 const Store = require('electron-store')
 

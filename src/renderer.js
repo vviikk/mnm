@@ -4,9 +4,9 @@ const windowIsFullscreen = false
 
 const viewMargins = [0, 0, 0, 50] // top, right, bottom, left
 
-const OPTIONS = require('../package.json').config.mnm
+const { options, services } = require('./config')
 
-const { options, services } = require('./config/defaultConfig')
+const TitleBar = require('./renderer/components/TitleBar.js')
 
 const getViewBounds = () => {
   if (windowIsFullscreen) {
@@ -35,23 +35,9 @@ module.exports = (html, render) => {
   // be executed in the renderer process for that window.
 
   // All of the Node.js APIs are available in this process.
-  // const services = [
-  //   'https://web.whatsapp.com',
-  //   'https://messenger.com',
-  //   'https://www.html5rocks.com/en/tutorials/notifications/quick/',
-  //   'https://feedly.com',
-  //   'https://outlook.com',
-  //   'https://www.daftlogic.com/sandbox-using-html5-notifications.htm',
-  //   'https://mail.zoho.com',
-  //   'https://lazada.com',
-  //   'https://gmail.com',
-  //   'https://instagram.com',
-  //   'https://facebook.com',
-  //   'https://wechat.com',
-  // ]
 
   const fetchIcon = async url => {
-    const resp = await fetch(`${OPTIONS.faviconService}?url=${url}`)
+    const resp = await fetch(`${options.faviconService}?url=${url}`)
 
     const { faviconUrl } = await resp.json()
     return faviconUrl
@@ -78,6 +64,7 @@ module.exports = (html, render) => {
 
   // Define a template
   const tabs = images => html`
+    ${TitleBar(html)}
     <ul class="tabbar">
       ${servicesList(images)}
     </ul>
@@ -92,7 +79,6 @@ module.exports = (html, render) => {
   }
 
   bootstrap()
-  // Render the template to the document
 
   window.addEventListener('resize', () => {
     clearTimeout(window.resizedFinished)

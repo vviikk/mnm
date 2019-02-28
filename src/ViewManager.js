@@ -5,11 +5,17 @@ const path = require('path')
 
 class ViewManager {
   constructor(browserWindow, size) {
-    this.mainWindow = browserWindow
+    this._mainWindow = browserWindow
     this._views = []
     this._size = size
     this.decorateURL = _ => _
     this._selectedView = null
+
+    this.bootstrapWindow()
+  }
+
+  bootstrapWindow() {
+    this._mainWindow.setAutoHideMenuBar(true)
   }
 
   set size(size) {
@@ -30,10 +36,12 @@ class ViewManager {
 
   moveToView(idx) {
     // if (!this._selectedView) return
-    console.log('Moving to' + idx, this._views)
+    console.log('Moving to' + idx, this._views, 'size', this.size)
     this._selectedView = this._views[idx]
-    this._selectedView.setBounds(this.size)
-    this.mainWindow.setBrowserView(this._selectedView)
+    if (this.size) {
+      this._selectedView.setBounds(this.size)
+    }
+    this._mainWindow.setBrowserView(this._selectedView)
   }
 
   addViewAsync(service, opts) {
