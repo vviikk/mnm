@@ -4,9 +4,9 @@ const windowIsFullscreen = false
 
 const viewMargins = [0, 0, 0, 50] // top, right, bottom, left
 
-const { options, services } = require('./config')
+const { options, services } = require('../config')
 
-const TitleBar = require('./renderer/components/TitleBar.js')
+const TitleBar = require('./components/TitleBar.js')
 
 const getViewBounds = () => {
   if (windowIsFullscreen) {
