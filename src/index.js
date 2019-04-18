@@ -2,6 +2,7 @@
 const { app, BrowserWindow, ipcMain, session } = require('electron')
 const reload = require('electron-reload')
 const ViewManager = require('./ViewManager')
+const { getSafeFilename } = require('./utils')
 
 const { options, services } = require('./config')
 
@@ -65,6 +66,7 @@ const createWindow = () => {
 
   ipcMain.on('init', (evt, services) => {
     console.log('Booting up...')
+    console.log(getSafeFilename('asd123.jpg'))
     viewManager = new ViewManager(mainWindow)
     ipcMain.on('size', (evt, size) => {
       console.log('size event received')

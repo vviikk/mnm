@@ -1,9 +1,10 @@
-import sanitizeFilename from 'sanitize-filename'
+const sanitizeFilename = require('sanitize-filename')
 const electron = require('electron')
 
-export const getUserPath = () => (electron.app || electron.remote.app).getPath(
-  'userData',
-)
-export const isProd = () => process.env === 'development'
+const USER_PATH = (electron.app || electron.remote.app).getPath('userData')
 
-export const getSafeFilename = url => getUserPath() + sanitizeFilename(url)
+module.exports = {
+  USER_PATH,
+  isProd: () => process.env === 'development',
+  getSafeFilename: url => `${USER_PATH}/${sanitizeFilename(url)}`,
+}
