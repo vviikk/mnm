@@ -57,6 +57,7 @@
   "dependencies": {
     "@babel/runtime": "^7.4.3",
     "connect": "^3.6.6",
+    "download": "^7.1.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^2.0.0",
     "favicon-url": "^0.0.5",

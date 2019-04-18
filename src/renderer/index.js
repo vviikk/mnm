@@ -8,6 +8,8 @@ const { options, services } = require('../config')
 
 const TitleBar = require('./components/TitleBar.js')
 
+const { getSafeFilename } = require('../utils')
+
 const getViewBounds = () => {
   if (windowIsFullscreen) {
     return {
